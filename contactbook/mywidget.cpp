@@ -11,6 +11,7 @@ void Write(QString Filename,QString str){
         return;
     }
     QTextStream out(&mFile);
+    out.setEncoding(QStringConverter::Utf8);
     out<<str;
     mFile.flush();
     mFile.close();
@@ -69,5 +70,5 @@ void MyWidget::on_pushButton_clicked(){
         }
         saveStr+="\n";
     }
-    Write(mFilename,saveStr);
+    Write(Filename,saveStr);
 }
