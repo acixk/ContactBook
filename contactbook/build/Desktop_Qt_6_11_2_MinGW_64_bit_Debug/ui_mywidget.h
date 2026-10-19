@@ -26,10 +26,8 @@ QT_BEGIN_NAMESPACE
 class Ui_MyWidget
 {
 public:
-    QHBoxLayout *horizontalLayout_3;
-    QVBoxLayout *verticalLayout_4;
-    QTableWidget *tableWidget;
     QVBoxLayout *verticalLayout_3;
+    QTableWidget *tableWidget;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
     QLabel *label_1;
@@ -43,6 +41,7 @@ public:
     QLineEdit *lineEdit_4;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
+    QPushButton *pushButton_2;
     QPushButton *insert;
     QPushButton *pushButton;
     QSpacerItem *horizontalSpacer_2;
@@ -52,17 +51,13 @@ public:
         if (MyWidget->objectName().isEmpty())
             MyWidget->setObjectName("MyWidget");
         MyWidget->resize(800, 600);
-        horizontalLayout_3 = new QHBoxLayout(MyWidget);
-        horizontalLayout_3->setObjectName("horizontalLayout_3");
-        verticalLayout_4 = new QVBoxLayout();
-        verticalLayout_4->setObjectName("verticalLayout_4");
+        verticalLayout_3 = new QVBoxLayout(MyWidget);
+        verticalLayout_3->setObjectName("verticalLayout_3");
         tableWidget = new QTableWidget(MyWidget);
         tableWidget->setObjectName("tableWidget");
 
-        verticalLayout_4->addWidget(tableWidget);
+        verticalLayout_3->addWidget(tableWidget);
 
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setObjectName("verticalLayout_3");
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
         verticalLayout = new QVBoxLayout();
@@ -121,9 +116,14 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName("horizontalLayout_2");
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+        horizontalSpacer = new QSpacerItem(785, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer);
+
+        pushButton_2 = new QPushButton(MyWidget);
+        pushButton_2->setObjectName("pushButton_2");
+
+        horizontalLayout_2->addWidget(pushButton_2);
 
         insert = new QPushButton(MyWidget);
         insert->setObjectName("insert");
@@ -135,18 +135,12 @@ public:
 
         horizontalLayout_2->addWidget(pushButton);
 
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+        horizontalSpacer_2 = new QSpacerItem(785, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer_2);
 
 
         verticalLayout_3->addLayout(horizontalLayout_2);
-
-
-        verticalLayout_4->addLayout(verticalLayout_3);
-
-
-        horizontalLayout_3->addLayout(verticalLayout_4);
 
 
         retranslateUi(MyWidget);
@@ -161,6 +155,7 @@ public:
         label_2->setText(QCoreApplication::translate("MyWidget", "\347\217\255\347\264\232:", nullptr));
         label_3->setText(QCoreApplication::translate("MyWidget", "\345\247\223\345\220\215:", nullptr));
         label_4->setText(QCoreApplication::translate("MyWidget", "\351\233\273\350\251\261:", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("MyWidget", "\345\214\257\345\205\245", nullptr));
         insert->setText(QCoreApplication::translate("MyWidget", "\346\226\260\345\242\236", nullptr));
         pushButton->setText(QCoreApplication::translate("MyWidget", "\345\214\257\345\207\272", nullptr));
     } // retranslateUi

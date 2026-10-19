@@ -3,15 +3,19 @@
 #include <QFile>
 #include <QDebug>
 #include <QFileDialog>
+#include <QTextStream>
 QString mFilename = "C:/Users/user/desktop/ContactBook/contactbook/myfile.txt";
-void read(QString Filename,QString str){
+QString read(QString Filename){
     QFile mFile(Filename);
     if(!mFile.open(QFile::ReadOnly | QFile::Text)){
         qDebug()<<"could not open file for read";
-        return;
+        return QString();
     }
-    mFile.flush();
+    QTextStream in(&mFile);
+    in.setEncoding(QStringConverter::System);
+    QString content = in.readAll();
     mFile.close();
+    return content;
 }
 void Write(QString Filename,QString str){
     QFile mFile(Filename);
@@ -75,10 +79,34 @@ void MyWidget::on_pushButton_clicked(){
     Filename = QFileDialog::getSaveFileName(this,"輸出通訊錄",",","csv(*.csv);;text(*.txt)");
     for(int i=0;i<ui->tableWidget->rowCount();i++){
         for(int j=0;j<ui->tableWidget->columnCount();j++){
-            saveStr+=ui->tableWidget->item(i,j)->text()+((j<ui->tableWidget->columnCount())? ",":"");
-
+            saveStr+=ui->tableWidget->item(i,j)->text()+((j<ui->tableWidget->columnCount()-1)? ",":"");
         }
         saveStr+="\n";
     }
     Write(Filename,saveStr);
 }
+
+void MyWidget::on_pushButton_2_clicked()
+{
+    QString Filename = QFileDialog::getOpenFileName(this, "讀取通訊錄", "", "csv(*.csv);;text(*.txt)");
+    if (Filename.isEmpty()) return;
+
+    QString fileContent = read(Filename);
+    if (fileContent.isEmpty()) return;
+
+    ui->tableWidget->setRowCount(0);
+
+    QStringList lines = fileContent.split('\n', Qt::SkipEmptyParts);
+    for (const QString &line : lines) {
+        QStringList fields = line.split(',');
+
+        int currentRow = ui->tableWidget->rowCount();
+        ui->tableWidget->insertRow(currentRow);
+
+        for (int j = 0; j < fields.size() && j < ui->tableWidget->columnCount(); j++) {
+            QTableWidgetItem *item = new QTableWidgetItem(fields[j]);
+            ui->tableWidget->setItem(currentRow, j, item);
+        }
+    }
+}
+
