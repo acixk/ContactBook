@@ -4,6 +4,15 @@
 #include <QDebug>
 #include <QFileDialog>
 QString mFilename = "C:/Users/user/desktop/ContactBook/contactbook/myfile.txt";
+void read(QString Filename,QString str){
+    QFile mFile(Filename);
+    if(!mFile.open(QFile::ReadOnly | QFile::Text)){
+        qDebug()<<"could not open file for read";
+        return;
+    }
+    mFile.flush();
+    mFile.close();
+}
 void Write(QString Filename,QString str){
     QFile mFile(Filename);
     if(!mFile.open(QFile::WriteOnly | QFile::Text)){
@@ -11,7 +20,7 @@ void Write(QString Filename,QString str){
         return;
     }
     QTextStream out(&mFile);
-    out.setEncoding(QStringConverter::Utf8);
+    out.setEncoding(QStringConverter::System);
     out<<str;
     mFile.flush();
     mFile.close();
@@ -66,7 +75,8 @@ void MyWidget::on_pushButton_clicked(){
     Filename = QFileDialog::getSaveFileName(this,"輸出通訊錄",",","csv(*.csv);;text(*.txt)");
     for(int i=0;i<ui->tableWidget->rowCount();i++){
         for(int j=0;j<ui->tableWidget->columnCount();j++){
-            saveStr+=ui->tableWidget->item(i,j)->text()+",";
+            saveStr+=ui->tableWidget->item(i,j)->text()+((j<ui->tableWidget->columnCount())? ",":"");
+
         }
         saveStr+="\n";
     }
